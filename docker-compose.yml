@@ -1,0 +1,47 @@
+---
+version: '2'
+services:
+  data-rest-test:
+    build:
+      context: ./bilt-data/data-rest-test
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    links:
+      - "redis:redis"
+    depends_on:
+      - redis
+  service-games:
+    build:
+      context: ./bilt-services/service-games
+      dockerfile: Dockerfile
+    ports:
+      - "9080:9080"
+    links:
+      - "redis:redis"
+    depends_on:
+      - redis
+      - data-rest-test
+#  webapp:
+#    build:
+#      context: ./bilt-webapp
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    links:
+#      - "redis:redis"
+#    depends_on:
+#      - redis
+#      - data-rest-test
+#      - service-movement
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    command:
+      - redis-server
+      - /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./bilt-service/redis.conf:/usr/local/etc/redis/redis.conf
+      # NOTE: The following will need to change most likely to a data container
+      - /data/bilt:/mnt/bilt:rw

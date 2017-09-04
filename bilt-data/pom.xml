@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.byteknowledge.labs</groupId>
+    <artifactId>bilt</artifactId>
+    <version>1.0</version>
+  </parent>
+
+  <groupId>com.byteknowledge.labs.bilt</groupId>
+  <artifactId>bilt-data</artifactId>
+  <version>${project.parent.version}</version>
+  <packaging>pom</packaging>
+  <name>BILT - Data</name>
+
+  <modules>
+    <module>data-redis</module>
+    <module>data-rest-test</module>
+  </modules>
+
+  <prerequisites>
+    <maven>3.2.5</maven>
+  </prerequisites>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.byteknowledge.labs.bilt</groupId>
+        <artifactId>bilt-core</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>
