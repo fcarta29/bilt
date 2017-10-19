@@ -38,30 +38,30 @@ public class User extends AbstractUUIDEntity {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((userName == null) ? 0 : userName.hashCode());
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        User other = (User) obj;
-        if (getId() == null) {
-            if (other.getId() != null)
-                return false;
-        } else if (!getId().equals(other.getId()))
-            return false;
-        if (userName == null) {
-            if (other.getUserName() != null)
-                return false;
-        } else if (!userName.equals(other.getUserName()))
-            return false;
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof User)) {
+			return false;
+		}
+		User other = (User) obj;
+		if (userName == null) {
+			if (other.userName != null) {
+				return false;
+			}
+		} else if (!userName.equals(other.userName)) {
+			return false;
+		}
+		
         return true;
     }
 
@@ -69,6 +69,5 @@ public class User extends AbstractUUIDEntity {
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }
-
-
+    
 }
