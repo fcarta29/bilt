@@ -3,7 +3,9 @@ package com.byteknowledge.bilt.data.dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +60,7 @@ public abstract class AbstractDaoRedis<E extends AbstractUUIDEntity> implements 
           redisTemplate.afterPropertiesSet();
           return redisTemplate;
       }
-
+/*
       @Bean(name = "redisIndexingTemplate")
       protected RedisTemplate<String, String> redisIndexingTemplate() {
           final RedisTemplate<String, String> redisTemplate = new RedisTemplate<String, String>();
@@ -69,7 +71,7 @@ public abstract class AbstractDaoRedis<E extends AbstractUUIDEntity> implements 
           redisTemplate.afterPropertiesSet();
           return redisTemplate;
       }
-
+*/
       public abstract RedisTemplate<String, E> getRedisTemplate();
 
       @Override
@@ -125,5 +127,21 @@ public abstract class AbstractDaoRedis<E extends AbstractUUIDEntity> implements 
       public void remove(final E entity) {
           clearIndexes(entity);
           getRedisTemplate().opsForHash().delete(getObjectKey(), entity.getId().toString());
+      }
+      
+      protected Collection<UUID> convertStringsToUUIDs(final Collection<String> ids) {
+    	  final Set<UUID> uuids = new HashSet<UUID>();
+    	  for (final String id : ids) {
+    		  uuids.add(UUID.fromString(id));
+    	  }
+    	  return uuids;
+      }
+      
+      protected Collection<String> convertUUIDsToStrings(final Collection<UUID> uuids) {
+    	  final Set<String> ids = new HashSet<String>();
+    	  for (final UUID uuid : uuids) {
+    		  ids.add(uuid.toString());
+    	  }
+    	  return ids; 
       }
 }

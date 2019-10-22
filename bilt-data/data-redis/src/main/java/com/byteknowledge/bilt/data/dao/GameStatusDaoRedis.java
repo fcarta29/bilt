@@ -1,5 +1,6 @@
 package com.byteknowledge.bilt.data.dao;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -42,36 +43,7 @@ public class GameStatusDaoRedis implements GameStatusDao {
     @Qualifier("gameStatusRedisTemplate")
     private RedisTemplate<String,GameStatus> redisTemplate;
 
-	/**
-	 * NOTE[fcarta] - RedisTemplate is only able to contain one instance of
-	 * XxxValueSerializer therefore we have to init the RedisTemplate here and
-	 * add the following in each extending class
-	 *
-	 * @Bean(name="tileRedisTemplate") public RedisTemplate
-	 *                                 <String,Tile> redisTemplate() { return
-	 *                                 initRedisTemplate(); }
-	 *
-	 * @Autowired @Qualifier("tileRedisTemplate") private RedisTemplate
-	 *            <String,Tile> redisTemplate = new RedisTemplate
-	 *            <String,Tile>();
-	 *
-	 * @Override public RedisTemplate<String,Tile> getRedisTemplate() { return
-	 *           redisTemplate; }
-	 *
-	 *
-	 * @return
-	 *
-	protected RedisTemplate<String, E> initRedisTemplate() {
-		final RedisTemplate<String, E> redisTemplate = new RedisTemplate<String, E>();
-		redisTemplate.setConnectionFactory(jedisConnectionFactory);
-		// NOTE[fcarta] - TX seem to perform really poorly disabling for now
-		// redisTemplate.setEnableTransactionSupport(true);
-		redisTemplate.setKeySerializer(new StringRedisSerializer());
-		redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<E>(typeOfEntity));
-		redisTemplate.afterPropertiesSet();
-		return redisTemplate;
-	}
-
+	/**`
 	@Bean(name = "redisIndexingTemplate")
 	protected RedisTemplate<String, String> redisIndexingTemplate() {
 		final RedisTemplate<String, String> redisTemplate = new RedisTemplate<String, String>();
@@ -81,56 +53,8 @@ public class GameStatusDaoRedis implements GameStatusDao {
 		redisTemplate.setValueSerializer(new StringRedisSerializer());
 		redisTemplate.afterPropertiesSet();
 		return redisTemplate;
-	}*/
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public GameStatus get(final UUID gameId) {
-		//return (GameStatus) redisTemplate.opsForHash().get(OBJECT_KEY, gameId.toString());
-		throw new UnsupportedOperationException("");
 	}
-
-	@Override
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<GameStatus> getList(final Collection<UUID> gameIds) {
-		/*
-		// need to convert the UUIDs to a collection of strings to get data back
-		final Collection idsAsStringCollection = new ArrayList<String>();
-		for (final UUID id : gameIds) {
-			idsAsStringCollection.add(id.toString());
-		}
-		return (List<GameStatus>) (List<?>) redisTemplate.opsForHash().multiGet(OBJECT_KEY, idsAsStringCollection);
-	*/
-		throw new UnsupportedOperationException("");
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<GameStatus> list() {
-		//return (List<GameStatus>) (List<?>) redisTemplate.opsForHash().values(OBJECT_KEY);
-		throw new UnsupportedOperationException("");
-	}
-
-	@Override
-	public void save(final GameStatus entity) {
-		throw new UnsupportedOperationException("");
-		/*
-		boolean isUpdate = Boolean.TRUE;
-		if (entity.getId() == null) {
-			entity.setId(UUID.randomUUID());
-			// this is a new record
-			isUpdate = Boolean.FALSE;
-		}
-		// TODO[fcarta] - should make this all transactional
-		if (isUpdate) {
-			// clear out old indexes and update
-			final GameStatus oldEntity = (GameStatus) redisTemplate.opsForHash().get(OBJECT_KEY, entity.getId().toString());
-			clearIndexes(oldEntity);
-		}
-		redisTemplate.opsForHash().put(OBJECT_KEY, entity.getId().toString(), entity);
-		setIndexes(entity);*/
-	}
-
+	
 	protected void setIndexes(final GameStatus entity) {
 		// Override to set custom indexes for lookups
 	}
@@ -138,11 +62,39 @@ public class GameStatusDaoRedis implements GameStatusDao {
 	protected void clearIndexes(final GameStatus Entity) {
 		// Override to clear custom indexes for lookups
 	}
+	*/
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public GameStatus getByGame(final UUID gameId) {
+		return (GameStatus) redisTemplate.opsForHash().get(OBJECT_KEY, gameId.toString());
+	}
+
+	@Override
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<GameStatus> getListByGames(final Collection<UUID> gameIds) {
+		// need to convert the UUIDs to a collection of strings to get data back
+		final Collection idsAsStringCollection = new ArrayList<String>();
+		for (final UUID id : gameIds) {
+			idsAsStringCollection.add(id.toString());
+		}
+		return (List<GameStatus>) (List<?>) redisTemplate.opsForHash().multiGet(OBJECT_KEY, idsAsStringCollection);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<GameStatus> list() {
+		return (List<GameStatus>) (List<?>) redisTemplate.opsForHash().values(OBJECT_KEY);
+	}
+
+	@Override
+	public void save(final GameStatus entity) {
+		redisTemplate.opsForHash().put(OBJECT_KEY, entity.getGameId().toString(), entity);
+	}
+
 
 	@Override
 	public void remove(final GameStatus entity) {
-		throw new UnsupportedOperationException("");
-		//clearIndexes(entity);
-		//redisTemplate.opsForHash().delete(OBJECT_KEY, entity.getGameId().toString());
+		redisTemplate.opsForHash().delete(OBJECT_KEY, entity.getGameId().toString());
 	}
 }

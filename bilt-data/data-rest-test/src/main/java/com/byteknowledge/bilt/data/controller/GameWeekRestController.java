@@ -9,7 +9,7 @@ import com.byteknowledge.bilt.dao.GameWeekDao;
 import com.byteknowledge.bilt.model.GameWeek;
 
 @RestController
-@RequestMapping("/weeks")
+@RequestMapping("/games/weeks")
 public class GameWeekRestController extends AbstractRestController<GameWeek> {
 	
 	@Autowired

@@ -1,17 +1,16 @@
 package com.byteknowledge.bilt.data.receiver;
 
-import java.util.Calendar;
-import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DataReceiver {
 
-    private static final Logger LOGGER = Logger.getLogger(DataReceiver.class);
+    private static final Logger LOGGER = LogManager.getLogger(DataReceiver.class);
 
 	private ObjectMapper mapper = new ObjectMapper();
 

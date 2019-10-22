@@ -23,7 +23,27 @@
 6. Building Applications
   * "mvn clean install" from /bilt directory to build all
 
-### Build and Run
+### Compile Code and Testing
+Requirements:
+* Maven 3.2.5 and up
+
+To compile all
+```
+mvn clean compile
+```
+
+To test all
+```
+mvn test
+```
+
+To build application and test
+```
+mvn clean install
+```
+
+
+### Build Application and Run
 _*Note: all commands assume repo directory for working dir_
 
 Requirements:
@@ -65,8 +85,15 @@ docker-compose up service-games
 Swagger documentation:
 `http://{docker_host}:9080/swagger-ui.html`
 
-##Project Start/Run (Maven/Java/Spring Way)
+### BILT Webapp
+BILT Webapp that serves as front end for service consumption
+```
+docker-compose up webapp
+```
+Web UI
+`http://{docker_host}:8080`
 
+### Project Start/Run (Maven/Java/Spring Way)
 1. Debugging
   * export MAVEN_OPTS="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=y”
 2. Starting Applications

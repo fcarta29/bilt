@@ -6,12 +6,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <parent>
     <groupId>com.byteknowledge.labs</groupId>
     <artifactId>bilt</artifactId>
-    <version>1.0</version>
+    <version>1.0</version> 
   </parent>
 
   <groupId>com.byteknowledge.labs.bilt</groupId>
   <artifactId>bilt-data</artifactId>
-  <version>${project.parent.version}</version>
   <packaging>pom</packaging>
   <name>BILT - Data</name>
 
@@ -29,8 +28,13 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
       <dependency>
         <groupId>com.byteknowledge.labs.bilt</groupId>
         <artifactId>bilt-core</artifactId>
-        <version>${project.parent.version}</version>
+        <version>1.0</version>
       </dependency>
+      <dependency>
+        <groupId>com.byteknowledge.labs.bilt.bilt-data</groupId>
+        <artifactId>data-redis</artifactId>
+        <version>1.0</version>
+      </dependency>      
     </dependencies>
   </dependencyManagement>
 </project>

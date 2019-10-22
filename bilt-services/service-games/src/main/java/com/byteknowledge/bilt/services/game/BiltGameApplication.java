@@ -1,4 +1,4 @@
-package com.byteknowledge.bilt.services.movement;
+package com.byteknowledge.bilt.services.game;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

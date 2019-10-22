@@ -10,7 +10,6 @@
 
   <groupId>com.byteknowledge.labs.bilt</groupId>
   <artifactId>bilt-services</artifactId>
-  <version>${project.parent.version}</version>
   <packaging>pom</packaging>
   <name>BILT - Services</name>
 
@@ -27,13 +26,13 @@
       <dependency>
         <groupId>com.byteknowledge.labs.bilt</groupId>
         <artifactId>bilt-core</artifactId>
-        <version>${project.parent.version}</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
-        <groupId>com.byteknowledge.labs.bilt.data</groupId>
+        <groupId>com.byteknowledge.labs.bilt.bilt-data</groupId>
         <artifactId>data-redis</artifactId>
-        <version>${project.parent.version}</version>
-      </dependency>
+        <version>1.0</version>
+      </dependency>      
     </dependencies>
   </dependencyManagement>
 </project>

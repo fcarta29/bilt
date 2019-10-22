@@ -1,4 +1,4 @@
-package com.byteknowledge.bilt.services.movement;
+package com.byteknowledge.bilt.services.game;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

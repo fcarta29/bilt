@@ -1,8 +1,10 @@
 package com.byteknowledge.bilt.dto;
 
-public abstract class UUIDDto {
+public abstract class UUIDDto extends AbstractDto {
 
-    protected final String id;
+	private static final long serialVersionUID = -6277074475465580961L;
+	
+	protected final String id;
 
     protected UUIDDto(final String id) {
         this.id = id;

@@ -11,7 +11,6 @@
 
     <groupId>com.byteknowledge.labs.bilt</groupId>
     <artifactId>bilt-core</artifactId>
-    <version>${project.parent.version}</version>
     <name>BILT - Core (Shared components)</name>
 
     <dependencies>

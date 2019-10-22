@@ -8,9 +8,9 @@ import com.byteknowledge.bilt.model.GameStatus;
 
 public interface GameStatusDao {
 
-    public GameStatus get(final UUID id);
+	public GameStatus getByGame(final UUID gameId);
 
-    public List<GameStatus> getList(final Collection<UUID> ids);
+	public List<GameStatus> getListByGames(final Collection<UUID> gameIds);
 
     public List<GameStatus> list();
 

@@ -1,11 +1,10 @@
 package com.byteknowledge.bilt.dao;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Set;
 
 import com.byteknowledge.bilt.model.Game;
 
 public interface GameDao extends Dao<Game> {
 
-	public List<Game> getByWeek(final UUID weekId);
+	public Set<Game> findByDateRange(final Long startTimestamp, final Long endTimestamp);
 }

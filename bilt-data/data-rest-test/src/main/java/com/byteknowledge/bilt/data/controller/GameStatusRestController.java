@@ -17,6 +17,7 @@ import com.byteknowledge.bilt.model.GameStatus;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping("/games/status")
 public class GameStatusRestController {
 
 	@Autowired
@@ -27,9 +28,9 @@ public class GameStatusRestController {
         return getAllEntities();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody GameStatus get(@PathVariable("id") final UUID id) {
-        return getEntity(id);
+    @RequestMapping(value = "/{gameId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody GameStatus get(@PathVariable("gameId") final UUID gameId) {
+        return getEntity(gameId);
     }
 
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
@@ -37,15 +38,15 @@ public class GameStatusRestController {
         createEntity(gameStatus);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = "application/json")
-    public void save(@PathVariable("id") final UUID id, final @RequestBody GameStatus gameStatus) {
-        final GameStatus persistedGameStatus = gameStatusDao.get(id);
+    @RequestMapping(value = "/{gameId}", method = RequestMethod.POST, consumes = "application/json")
+    public void save(@PathVariable("gameId") final UUID gameId, final @RequestBody GameStatus gameStatus) {
+        final GameStatus persistedGameStatus = gameStatusDao.getByGame(gameId);
         updateEntity(persistedGameStatus, gameStatus);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") final UUID id) {
-        final GameStatus persistedGameStatus = gameStatusDao.get(id);
+    @RequestMapping(value = "/{gameId}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("gameId") final UUID gameId) {
+        final GameStatus persistedGameStatus = gameStatusDao.getByGame(gameId);
         if (persistedGameStatus != null) {
             gameStatusDao.remove(persistedGameStatus);
         }
@@ -60,8 +61,8 @@ public class GameStatusRestController {
         gameStatusDao.save(persistedGameStatus);
     }
 
-    protected GameStatus getEntity(final UUID id) {
-        return gameStatusDao.get(id);
+    protected GameStatus getEntity(final UUID gameId) {
+        return gameStatusDao.getByGame(gameId);
     }
 
     protected Collection<GameStatus> getAllEntities() {

@@ -22,18 +22,17 @@ services:
     depends_on:
       - redis
       - data-rest-test
-#  webapp:
-#    build:
-#      context: ./bilt-webapp
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8080:8080"
-#    links:
-#      - "redis:redis"
-#    depends_on:
-#      - redis
-#      - data-rest-test
-#      - service-movement
+  webapp:
+    build:
+      context: ./bilt-webapp
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    links:
+      - "redis:redis"
+    depends_on:
+        - redis
+        - service-games
   redis:
     image: redis
     ports:
@@ -42,6 +41,6 @@ services:
       - redis-server
       - /usr/local/etc/redis/redis.conf
     volumes:
-      - ./bilt-service/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./bilt-services/redis.conf:/usr/local/etc/redis/redis.conf
       # NOTE: The following will need to change most likely to a data container
       - /data/bilt:/mnt/bilt:rw
