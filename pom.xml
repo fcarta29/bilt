@@ -39,7 +39,7 @@
 		<log4j-version>2.2</log4j-version>
 		<log.console.threshold>DEBUG</log.console.threshold>
 
-		<jackson-version>2.9.0</jackson-version>
+		<jackson-version>2.10.3</jackson-version>
 
 		<!-- Testing -->
 		<junit-version>4.11</junit-version>
